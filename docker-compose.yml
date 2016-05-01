@@ -1,0 +1,38 @@
+version: '2'
+services:
+  mysql:
+    restart: always
+    build: ./data/mysql/
+    volumes:
+      - "./data/mysql/db:/var/lib/mysql"
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_USER: cakephp
+      MYSQL_PASSWORD: cakepass
+      TZ: "Asia/Tokyo"
+  nginx:
+    restart: always
+    image: "nginx:mainline-alpine"
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - "./data/nginx/conf:/etc/nginx/"
+      - "./data/htdocs:/var/www/html"
+    environment:
+      TZ: "Asia/Tokyo"
+    depends_on:
+      - phpfpm
+    links:
+      - phpfpm
+  phpfpm:
+    restart: always
+    image: "php:7-fpm-alpine"
+    environment:
+      TZ: "Asia/Tokyo"
+    volumes:
+      - "./data/htdocs:/var/www/html"
+    depends_on:
+      - mysql
+    links:
+      - mysql
