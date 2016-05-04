@@ -6,3 +6,7 @@ RUN set -x && \
   docker-php-ext-install -j${NPROC} intl && \
   apk del --no-cache --purge build-dependencies && \
   rm -rf /tmp/pear
+RUN set -x && \
+  deluser www-data && \
+  addgroup -g 50 -S www-data && \
+  adduser -u 1000 -D -S -G www-data www-data
