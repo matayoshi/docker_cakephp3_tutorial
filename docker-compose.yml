@@ -7,8 +7,9 @@ services:
       - "./data/mysql/db:/var/lib/mysql"
     environment:
       MYSQL_ROOT_PASSWORD: password
-      MYSQL_USER: cakephp
-      MYSQL_PASSWORD: cakepass
+      MYSQL_USER: my_app
+      MYSQL_PASSWORD: secret
+      MYSQL_DATABASE: my_app
       TZ: "Asia/Tokyo"
   nginx:
     restart: always
