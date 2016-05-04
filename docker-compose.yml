@@ -27,7 +27,7 @@ services:
       - phpfpm
   phpfpm:
     restart: always
-    image: "php:7-fpm-alpine"
+    build: ./data/phpfpm/
     environment:
       TZ: "Asia/Tokyo"
     volumes:
